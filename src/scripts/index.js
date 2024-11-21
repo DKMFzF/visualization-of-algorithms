@@ -3,4 +3,4 @@ import { configFullPage } from '../components/scroll-page.js'
 import '../pages/index.css';
 
 // scroll page
-const myFullpage = new fullpage("#fullpage", configFullPage);
+(() => new fullpage("#fullpage", configFullPage))();
