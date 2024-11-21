@@ -1,18 +1,2 @@
 @import url('../vendor/font.css');
 @import url('../vendor/tailwind.css');
-
-.page__bg-gradient {
-    opacity: .5;
-    background-image: 
-        linear-gradient(
-            to top,
-            transparent 97%,
-            black 97%   
-        ),
-        linear-gradient(
-            to left,
-            transparent 97%,
-            black 97%
-        );
-    background-size: 50px 50px;
-}

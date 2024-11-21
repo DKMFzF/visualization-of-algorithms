@@ -1,3 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+    .bg-gradient-custom {
+        background-image: 
+            linear-gradient(
+                to top,
+                transparent 97%,
+                black 97%
+            ),
+            linear-gradient(
+                to left,
+                transparent 97%,
+                black 97%
+            );
+        background-size: 50px 50px;
+    }
+}
