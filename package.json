@@ -1,0 +1,44 @@
+{
+  "name": "visual-sorting",
+  "version": "1.0.0",
+  "description": "This project shows how different sorts work internally. The project provides a pet project for my portfolio.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "build": "webpack --mode production",
+    "dev": "webpack server",
+    "deploy": "npm run build && gh-pages -d dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DKMFzF/-isualization-of-algorithms.git"
+  },
+  "author": "dkmfzf",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DKMFzF/-isualization-of-algorithms/issues"
+  },
+  "homepage": "https://github.com/DKMFzF/-isualization-of-algorithms#readme",
+  "devDependencies": {
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
+    "autoprefixer": "^10.4.20",
+    "babel-loader": "^9.2.1",
+    "clean-webpack-plugin": "^4.0.0",
+    "css-loader": "^7.1.2",
+    "cssnano": "^7.0.6",
+    "gh-pages": "^6.2.0",
+    "html-webpack-plugin": "^5.6.3",
+    "mini-css-extract-plugin": "^2.9.2",
+    "postcss-loader": "^8.1.1",
+    "tailwindcss": "^3.4.15",
+    "webpack": "^5.96.1",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.1.0"
+  },
+  "dependencies": {
+    "core-js": "^3.39.0"
+  }
+}
