@@ -5,10 +5,8 @@ module.exports = {
       extend: {
         fontFamily: {
           'sans': ['"Syne"', 'sans-serif']
-        }
+        },
       },
-    },
     plugins: [],
   }
-  
-  
+}

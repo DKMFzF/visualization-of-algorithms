@@ -17,4 +17,8 @@
             );
         background-size: 50px 50px;
     }
+
+    .hidden-element-premove {
+        transform: translateY(100%);
+    }
 }
