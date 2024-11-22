@@ -1,5 +1,5 @@
 export const configFullPage = {
-    scrollingSpeed: 1000,
-    autoScrolling: true,
-    navigation: false,
-}
+  scrollingSpeed: 1000,
+  autoScrolling: true,
+  navigation: false,
+};

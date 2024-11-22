@@ -1,28 +1,28 @@
-import * as THREE from 'three';
+import * as THREE from "three";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import fullpage from 'fullpage-js-geek'; 
-import { configFullPage } from '../components/scroll-page.js';
-import { 
-    configAppElemHeroY,
-    configAppElemY
-} from '../components/animation.js';
-import '../pages/index.css';
+import fullpage from "fullpage-js-geek";
+import { configFullPage } from "../components/scroll-page.js";
+import { configAppElemHeroY, configAppElemY } from "../components/animation.js";
+import "../pages/index.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
 // init webgl
-const canvas = document.querySelector('canvas.webgl');
+const canvas = document.querySelector("canvas.webgl");
 const scene = new THREE.Scene();
 const objectsDistance = 4;
 const material1 = new THREE.MeshToonMaterial({
-    color: '#008000',
-    transparent: false,
+  color: "#008000",
+  transparent: false,
 });
-const mesh1 = new THREE.Mesh(new THREE.TorusGeometry(1, 0.4, 16, 60), material1);
+const mesh1 = new THREE.Mesh(
+  new THREE.TorusGeometry(1, 0.4, 16, 60),
+  material1
+);
 const material2 = new THREE.MeshToonMaterial({
-    color: '#ff0000',
-    transparent: false,
+  color: "#ff0000",
+  transparent: false,
 });
 const mesh2 = new THREE.Mesh(new THREE.ConeGeometry(1, 2, 32), material2);
 
@@ -38,134 +38,133 @@ const sectionMeshes = [mesh1, mesh2];
 const particlesCount = 200;
 const positions = new Float32Array(particlesCount * 3);
 for (let i = 0; i < particlesCount; i++) {
-    positions[i * 3 + 0] = (Math.random() - 0.5) * 10;
-    positions[i * 3 + 1] =
-        objectsDistance * 0.4 - Math.random() * objectsDistance * sectionMeshes.length;
-    positions[i * 3 + 2] = (Math.random() - 0.5) * 10;
+  positions[i * 3 + 0] = (Math.random() - 0.5) * 10;
+  positions[i * 3 + 1] =
+    objectsDistance * 0.4 -
+    Math.random() * objectsDistance * sectionMeshes.length;
+  positions[i * 3 + 2] = (Math.random() - 0.5) * 10;
 }
 
 const particlesGeometry = new THREE.BufferGeometry();
 particlesGeometry.setAttribute(
-    'position',
-    new THREE.BufferAttribute(positions, 3)
+  "position",
+  new THREE.BufferAttribute(positions, 3)
 );
 
 const particlesMaterial = new THREE.PointsMaterial({
-    color: '#ffeded',
-    sizeAttenuation: true,
-    size: 0.03,
+  color: "#ffeded",
+  sizeAttenuation: true,
+  size: 0.03,
 });
 
-const directionalLight = new THREE.DirectionalLight('#ffffff', 1);
+const directionalLight = new THREE.DirectionalLight("#ffffff", 1);
 directionalLight.position.set(1, 1, 0);
 scene.add(directionalLight);
 
 const sizes = {
-    width: window.innerWidth,
-    height: window.innerHeight,
+  width: window.innerWidth,
+  height: window.innerHeight,
 };
 
-window.addEventListener('resize', () => {
-    sizes.width = window.innerWidth;
-    sizes.height = window.innerHeight;
-    camera.aspect = sizes.width / sizes.height;
-    camera.updateProjectionMatrix();
-    renderer.setSize(sizes.width, sizes.height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+window.addEventListener("resize", () => {
+  sizes.width = window.innerWidth;
+  sizes.height = window.innerHeight;
+  camera.aspect = sizes.width / sizes.height;
+  camera.updateProjectionMatrix();
+  renderer.setSize(sizes.width, sizes.height);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 });
 
 const cameraGroup = new THREE.Group();
 scene.add(cameraGroup);
 const camera = new THREE.PerspectiveCamera(
-    35,
-    sizes.width / sizes.height,
-    0.1,
-    100
+  35,
+  sizes.width / sizes.height,
+  0.1,
+  100
 );
 camera.position.z = 6;
 cameraGroup.add(camera);
 
 const renderer = new THREE.WebGLRenderer({
-    canvas: canvas,
-    alpha: true,
+  canvas: canvas,
+  alpha: true,
 });
 renderer.setSize(sizes.width, sizes.height);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
 renderer.shadowMap.enabled = false;
-renderer.setClearColor('#ffffff', 1);
+renderer.setClearColor("#ffffff", 1);
 
 let scrollY = window.scrollY;
 let currentSection = 0;
-window.addEventListener('scroll', () => {
-    scrollY = window.scrollY;
-    const newSection = Math.round(scrollY / sizes.height);
-    if (newSection != currentSection) {
-        currentSection = newSection;
-        gsap.to(sectionMeshes[currentSection].rotation, {
-            duration: 1.5,
-            ease: 'power2.inOut',
-            x: '+=6',
-            y: '+=3',
-            z: '+=1.5'
-        });
-    }
+window.addEventListener("scroll", () => {
+  scrollY = window.scrollY;
+  const newSection = Math.round(scrollY / sizes.height);
+  if (newSection != currentSection) {
+    currentSection = newSection;
+    gsap.to(sectionMeshes[currentSection].rotation, {
+      duration: 1.5,
+      ease: "power2.inOut",
+      x: "+=6",
+      y: "+=3",
+      z: "+=1.5",
+    });
+  }
 });
 
 const cursor = {};
 cursor.x = 0;
 cursor.y = 0;
-window.addEventListener('mousemove', (e) => {
-    cursor.x = e.clientX / sizes.width - 0.5;
-    cursor.y = e.clientY / sizes.height - 0.5;
+window.addEventListener("mousemove", (e) => {
+  cursor.x = e.clientX / sizes.width - 0.5;
+  cursor.y = e.clientY / sizes.height - 0.5;
 });
 
 const clock = new THREE.Clock();
 let previousTime = 0;
 const tick = () => {
-    const elapsedTime = clock.getElapsedTime();
-    const deltaTime = elapsedTime - previousTime;
-    previousTime = elapsedTime;
+  const elapsedTime = clock.getElapsedTime();
+  const deltaTime = elapsedTime - previousTime;
+  previousTime = elapsedTime;
 
-    // Animate camera
-    camera.position.y = (-scrollY / sizes.height) * objectsDistance;
-    const parallaxX = cursor.x * 0.5;
-    const parallaxY = -cursor.y * 0.5;
-    cameraGroup.position.x +=
-        (parallaxX - cameraGroup.position.x) * 5 * deltaTime;
-    cameraGroup.position.y +=
-        (parallaxY - cameraGroup.position.y) * 5 * deltaTime;
+  // Animate camera
+  camera.position.y = (-scrollY / sizes.height) * objectsDistance;
+  const parallaxX = cursor.x * 0.5;
+  const parallaxY = -cursor.y * 0.5;
+  cameraGroup.position.x +=
+    (parallaxX - cameraGroup.position.x) * 5 * deltaTime;
+  cameraGroup.position.y +=
+    (parallaxY - cameraGroup.position.y) * 5 * deltaTime;
 
-    // Animate meshes
-    for (const mesh of sectionMeshes) {
-        mesh.rotation.x += deltaTime * 0.1;
-        mesh.rotation.y += deltaTime * 0.12;
-    }
+  // Animate meshes
+  for (const mesh of sectionMeshes) {
+    mesh.rotation.x += deltaTime * 0.1;
+    mesh.rotation.y += deltaTime * 0.12;
+  }
 
-    // Render
-    renderer.render(scene, camera);
+  // Render
+  renderer.render(scene, camera);
 
-    // Call tick again on the next frame
-    window.requestAnimationFrame(tick);
+  // Call tick again on the next frame
+  window.requestAnimationFrame(tick);
 };
 
 // DOM-element
-const mainTitle = document.querySelector('#main-title');
-const mainSubtitle = document.querySelector('#main-subtitle');
+const mainTitle = document.querySelector("#main-title");
+const mainSubtitle = document.querySelector("#main-subtitle");
 
 // init animation
 const tl = gsap.timeline({
-    delay: 0.2,
-    defaults: {
-        ease: "power1.out"
-    }
+  delay: 0.2,
+  defaults: {
+    ease: "power1.out",
+  },
 });
 
-tl.to(mainTitle, configAppElemHeroY())
-    .to(mainSubtitle, configAppElemHeroY());
+tl.to(mainTitle, configAppElemHeroY()).to(mainSubtitle, configAppElemHeroY());
 
 tick();
 
 // init scroll page
 (() => new fullpage("#fullpage", configFullPage))();
-
