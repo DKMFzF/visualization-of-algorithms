@@ -65,7 +65,7 @@ const particlesMaterial = new PointsMaterial({
   size: 0.03,
 });
 
-const directionalLight = new DirectionalLight("#ffffff", 1);
+const directionalLight = new DirectionalLight("#ffffff", 3);
 directionalLight.position.set(1, 1, 0);
 scene.add(directionalLight);
 
@@ -97,7 +97,6 @@ renderer.setSize(sizes.width, sizes.height);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
 renderer.shadowMap.enabled = false;
-// renderer.setClearColor("#ffffff", 1);
 
 let scrollY = window.scrollY;
 let currentSection = 0;
