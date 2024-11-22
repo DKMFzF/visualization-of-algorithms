@@ -41,6 +41,7 @@
   "dependencies": {
     "core-js": "^3.39.0",
     "fullpage-js-geek": "^3.0.8",
-    "gsap": "^3.12.5"
+    "gsap": "^3.12.5",
+    "three": "^0.170.0"
   }
 }
