@@ -97,7 +97,7 @@ renderer.setSize(sizes.width, sizes.height);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
 renderer.shadowMap.enabled = false;
-renderer.setClearColor("#ffffff", 1);
+// renderer.setClearColor("#ffffff", 1);
 
 let scrollY = window.scrollY;
 let currentSection = 0;
