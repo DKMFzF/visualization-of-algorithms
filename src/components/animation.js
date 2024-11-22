@@ -1,12 +1,16 @@
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+export const configAppElemHeroY = () => {
+    return {
+        duration: 1,
+        y: 0 
+    };
+}
 
-gsap.registerPlugin(ScrollTrigger);
-
-export const appearanceElementY = (target) => {
-    gsap.to(target, {
-        scrollTrigger: target,
-        duration: 1.5,
+export const configAppElemY = (target) => {
+    return {
+        scrollTrigger: {
+            trigger: target
+        },
+        duration: 1,
         y: 0
-    });
-};
+    };
+}
