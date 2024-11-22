@@ -1,4 +1,18 @@
-import * as THREE from "three";
+import {
+  Scene,
+  MeshToonMaterial,
+  Mesh,
+  TorusGeometry,
+  ConeGeometry,
+  BufferGeometry,
+  BufferAttribute,
+  PointsMaterial,
+  DirectionalLight,
+  PerspectiveCamera,
+  WebGLRenderer,
+  Group,
+  Clock,
+} from "three";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import fullpage from "fullpage-js-geek";
@@ -10,21 +24,18 @@ gsap.registerPlugin(ScrollTrigger);
 
 // init webgl
 const canvas = document.querySelector("canvas.webgl");
-const scene = new THREE.Scene();
+const scene = new Scene();
 const objectsDistance = 4;
-const material1 = new THREE.MeshToonMaterial({
+const material1 = new MeshToonMaterial({
   color: "#008000",
   transparent: false,
 });
-const mesh1 = new THREE.Mesh(
-  new THREE.TorusGeometry(1, 0.4, 16, 60),
-  material1
-);
-const material2 = new THREE.MeshToonMaterial({
+const mesh1 = new Mesh(new TorusGeometry(1, 0.4, 16, 60), material1);
+const material2 = new MeshToonMaterial({
   color: "#ff0000",
   transparent: false,
 });
-const mesh2 = new THREE.Mesh(new THREE.ConeGeometry(1, 2, 32), material2);
+const mesh2 = new Mesh(new ConeGeometry(1, 2, 32), material2);
 
 mesh1.castShadow = false;
 mesh1.receiveShadow = false;
@@ -45,19 +56,16 @@ for (let i = 0; i < particlesCount; i++) {
   positions[i * 3 + 2] = (Math.random() - 0.5) * 10;
 }
 
-const particlesGeometry = new THREE.BufferGeometry();
-particlesGeometry.setAttribute(
-  "position",
-  new THREE.BufferAttribute(positions, 3)
-);
+const particlesGeometry = new BufferGeometry();
+particlesGeometry.setAttribute("position", new BufferAttribute(positions, 3));
 
-const particlesMaterial = new THREE.PointsMaterial({
+const particlesMaterial = new PointsMaterial({
   color: "#ffeded",
   sizeAttenuation: true,
   size: 0.03,
 });
 
-const directionalLight = new THREE.DirectionalLight("#ffffff", 1);
+const directionalLight = new DirectionalLight("#ffffff", 1);
 directionalLight.position.set(1, 1, 0);
 scene.add(directionalLight);
 
@@ -65,6 +73,12 @@ const sizes = {
   width: window.innerWidth,
   height: window.innerHeight,
 };
+
+const cameraGroup = new Group();
+scene.add(cameraGroup);
+const camera = new PerspectiveCamera(35, sizes.width / sizes.height, 0.1, 100);
+camera.position.z = 6;
+cameraGroup.add(camera);
 
 window.addEventListener("resize", () => {
   sizes.width = window.innerWidth;
@@ -75,18 +89,7 @@ window.addEventListener("resize", () => {
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 });
 
-const cameraGroup = new THREE.Group();
-scene.add(cameraGroup);
-const camera = new THREE.PerspectiveCamera(
-  35,
-  sizes.width / sizes.height,
-  0.1,
-  100
-);
-camera.position.z = 6;
-cameraGroup.add(camera);
-
-const renderer = new THREE.WebGLRenderer({
+const renderer = new WebGLRenderer({
   canvas: canvas,
   alpha: true,
 });
@@ -121,7 +124,7 @@ window.addEventListener("mousemove", (e) => {
   cursor.y = e.clientY / sizes.height - 0.5;
 });
 
-const clock = new THREE.Clock();
+const clock = new Clock();
 let previousTime = 0;
 const tick = () => {
   const elapsedTime = clock.getElapsedTime();
