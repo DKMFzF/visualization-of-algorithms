@@ -6,6 +6,9 @@ module.exports = {
         fontFamily: {
           'sans': ['"Syne"', 'sans-serif']
         },
+        width: {
+          '60': '60%'
+        },
         minHeight: {
           '28': '22rem'
         },

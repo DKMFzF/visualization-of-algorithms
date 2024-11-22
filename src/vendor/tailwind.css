@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 @layer utilities {
+    /* градиент для bg сайта */
     .bg-gradient-custom {
         background-image: 
             linear-gradient(
@@ -18,10 +19,39 @@
         background-size: 50px 50px;
     }
 
-    .hidden-element-premove {
+    /* панель в hero секции */
+    .inset-panel-setion-hero-up {
+        inset-block-start: 2.79rem;
+    }
+
+    .inset-panel-setion-hero-down {
+        inset-block-end: 2.79rem;
+    }
+
+    .border-hero-section-up {
+        border-top-right-radius: 2.5rem;
+        border-bottom-right-radius: 2.5rem;
+    }
+
+    .border-hero-section-down {
+        border-top-left-radius: 2.5rem;
+        border-bottom-left-radius: 2.5rem;
+    }
+
+    /* скрытие элемента для анимации появления */
+    .hidden-element-premove-y {
         transform: translateY(100%);
     }
 
+    .hidden-element-premove-x-left {
+        transform: translateX(-100%);
+    }
+
+    .hidden-element-premove-x-right {
+        transform: translateX(100%);
+    }
+
+    /* bg за title в hero секции */
     .position-background-center {
         position: absolute;
         z-index: -1;

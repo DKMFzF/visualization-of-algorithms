@@ -17,7 +17,12 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import fullpage from "fullpage-js-geek";
 import { configFullPage } from "../components/scroll-page.js";
-import { configAppElemHeroY, configAppElemY } from "../components/animation.js";
+import { 
+  configAppElemHeroY, 
+  configAppElemX, 
+  configAppElemXreverseLeft,
+  configAppElemXreverseRigth
+} from "../components/animation.js";
 import "../pages/index.css";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -139,22 +144,21 @@ const tick = () => {
   cameraGroup.position.y +=
     (parallaxY - cameraGroup.position.y) * 5 * deltaTime;
 
-  // Animate meshes
   for (const mesh of sectionMeshes) {
     mesh.rotation.x += deltaTime * 0.1;
     mesh.rotation.y += deltaTime * 0.12;
   }
 
-  // Render
   renderer.render(scene, camera);
 
-  // Call tick again on the next frame
   window.requestAnimationFrame(tick);
 };
 
 // DOM-element
 const mainTitle = document.querySelector("#main-title");
 const mainSubtitle = document.querySelector("#main-subtitle");
+const mainPanelUp = document.querySelector('#main-panel-up');
+const mainPanelDown = document.querySelector('#main-panel-down');
 
 // init animation
 const tl = gsap.timeline({
@@ -164,7 +168,12 @@ const tl = gsap.timeline({
   },
 });
 
-tl.to(mainTitle, configAppElemHeroY()).to(mainSubtitle, configAppElemHeroY());
+tl.to(mainTitle, configAppElemHeroY())
+  .to(mainSubtitle, configAppElemHeroY())
+  .to(mainPanelUp, configAppElemX())
+  .to(mainPanelDown, configAppElemX(), "<")
+  .to(mainPanelUp, configAppElemXreverseLeft())
+  .to(mainPanelDown, configAppElemXreverseRigth(), "<");
 
 tick();
 
