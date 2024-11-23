@@ -6,7 +6,6 @@ import {
   ConeGeometry,
   BufferGeometry,
   BufferAttribute,
-  PointsMaterial,
   DirectionalLight,
   PerspectiveCamera,
   WebGLRenderer,
@@ -18,30 +17,43 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import fullpage from "fullpage-js-geek";
 import { configFullPage } from "../components/scroll-page.js";
 import { 
-  configAppElemHeroY, 
-  configAppElemX, 
-  configAppElemXreverseLeft,
-  configAppElemXreverseRigth
+  configAppElemHeroDownY,
 } from "../components/animation.js";
 import "../pages/index.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
+// DOM-element
+const mainTitle = document.querySelector("#main-title");
+const mainSubtitle = document.querySelector("#main-subtitle");
+const headerLinkPageSorting = document.querySelector("#header-link-page-sorting");
+const headerLinkPageSearch = document.querySelector("#header-link-page-search");
+const headerLinkPageOptimization = document.querySelector("#header-link-page-optimization");
+
+// penguin
+const penguin = document.querySelector("#penguin");
+const penguinDialog = document.querySelector("#penguin-diolog");
+
+// value animation
+const animationTimeHeaderLink = 0.3;
+const animationTimeMainTitle = 0.5;
+
+// init timeline
+const tl = gsap.timeline({
+  delay: 0.2,
+  defaults: {
+    ease: "power1.out",
+  },
+});
+
 // init webgl
 const canvas = document.querySelector("canvas.webgl");
 const scene = new Scene();
 const objectsDistance = 4;
-const material1 = new MeshToonMaterial({
-  color: "#008000",
-  transparent: false,
-});
+const material1 = new MeshToonMaterial({ color: "#000980", transparent: false });
 const mesh1 = new Mesh(new TorusGeometry(1, 0.4, 16, 60), material1);
-const material2 = new MeshToonMaterial({
-  color: "#ff0000",
-  transparent: false,
-});
+const material2 = new MeshToonMaterial({ color: "#ff0000", transparent: false });
 const mesh2 = new Mesh(new ConeGeometry(1, 2, 32), material2);
-
 mesh1.castShadow = false;
 mesh1.receiveShadow = false;
 mesh2.castShadow = false;
@@ -50,9 +62,9 @@ mesh1.position.set(3, 2, 0);
 mesh2.position.set(-3, -2, 0);
 scene.add(mesh1, mesh2);
 const sectionMeshes = [mesh1, mesh2];
-
 const particlesCount = 200;
 const positions = new Float32Array(particlesCount * 3);
+
 for (let i = 0; i < particlesCount; i++) {
   positions[i * 3 + 0] = (Math.random() - 0.5) * 10;
   positions[i * 3 + 1] =
@@ -63,22 +75,10 @@ for (let i = 0; i < particlesCount; i++) {
 
 const particlesGeometry = new BufferGeometry();
 particlesGeometry.setAttribute("position", new BufferAttribute(positions, 3));
-
-const particlesMaterial = new PointsMaterial({
-  color: "#ffeded",
-  sizeAttenuation: true,
-  size: 0.03,
-});
-
 const directionalLight = new DirectionalLight("#ffffff", 3);
 directionalLight.position.set(1, 1, 0);
 scene.add(directionalLight);
-
-const sizes = {
-  width: window.innerWidth,
-  height: window.innerHeight,
-};
-
+const sizes = { width: window.innerWidth, height: window.innerHeight };
 const cameraGroup = new Group();
 scene.add(cameraGroup);
 const camera = new PerspectiveCamera(35, sizes.width / sizes.height, 0.1, 100);
@@ -94,13 +94,13 @@ window.addEventListener("resize", () => {
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 });
 
+// init renderer
 const renderer = new WebGLRenderer({
   canvas: canvas,
   alpha: true,
 });
 renderer.setSize(sizes.width, sizes.height);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
 renderer.shadowMap.enabled = false;
 
 let scrollY = window.scrollY;
@@ -120,6 +120,7 @@ window.addEventListener("scroll", () => {
   }
 });
 
+// init cursor
 const cursor = {};
 cursor.x = 0;
 cursor.y = 0;
@@ -128,14 +129,13 @@ window.addEventListener("mousemove", (e) => {
   cursor.y = e.clientY / sizes.height - 0.5;
 });
 
+// init clock
 const clock = new Clock();
 let previousTime = 0;
 const tick = () => {
   const elapsedTime = clock.getElapsedTime();
   const deltaTime = elapsedTime - previousTime;
   previousTime = elapsedTime;
-
-  // Animate camera
   camera.position.y = (-scrollY / sizes.height) * objectsDistance;
   const parallaxX = cursor.x * 0.5;
   const parallaxY = -cursor.y * 0.5;
@@ -150,24 +150,26 @@ const tick = () => {
   }
 
   renderer.render(scene, camera);
-
   window.requestAnimationFrame(tick);
 };
 
-// DOM-element
-const mainTitle = document.querySelector("#main-title");
-const mainSubtitle = document.querySelector("#main-subtitle");
-
-// init animation
-const tl = gsap.timeline({
-  delay: 0.2,
-  defaults: {
-    ease: "power1.out",
-  },
-});
-
-tl.to(mainTitle, configAppElemHeroY())
-  .to(mainSubtitle, configAppElemHeroY());
+// add in timeline
+tl.to(mainTitle, configAppElemHeroDownY(animationTimeMainTitle)) 
+  .to(mainSubtitle, configAppElemHeroDownY(animationTimeMainTitle), "-=0.2") 
+  .to(headerLinkPageSorting, configAppElemHeroDownY(animationTimeHeaderLink))
+  .to(headerLinkPageSearch, configAppElemHeroDownY(animationTimeHeaderLink), "-=0.2") 
+  .to(headerLinkPageOptimization, configAppElemHeroDownY(animationTimeHeaderLink), "-=0.2")
+  .to(penguin, {
+    delay: 1.5,
+    duration: 2,
+    y: 50
+  })
+  .from(penguinDialog, {
+    duration: 0.5,
+    opacity: 0,
+    y: 100,
+    bottom: 0
+  });
 
 tick();
 

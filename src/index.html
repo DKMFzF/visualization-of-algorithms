@@ -13,43 +13,74 @@
       class="fixed z-0 w-screen h-screen opacity-35 bg-gradient-custom"
     ></div>
     <div class="relative z-30 h-screen font-syne font-extrabold">
-      <main id="fullpage" class="h-screen flex justify-center">
+      <div id="fullpage" class="h-screen flex justify-center">
         <div class="content">
-          <section class="section">
-            <div class="h-screen w-screen flex justify-center items-center">
-              <div class="relative">
-                <div
-                  class="position-background-center min-w-full min-h-28 bg-transparent backdrop-blur-sm rounded-4xl border-black border-solid border-2"
-                ></div>
-                <div class="overflow-hidden">
-                  <h1
-                    id="main-title"
-                    class="hidden-element-premove-y uppercase text-center text-5xl"
-                  >
-                    Algorithms
-                  </h1>
+          <div id="penguin" class="absolute hidden-element-premove-y bottom-0 right-20 w-24">
+            <img
+              src="<%=require('./images/pin.png')%>"
+              class="w-full"
+              alt="interactive pin helper"
+            >
+          </div>
+          <div id="penguin-diolog" class="p-3 absolute right-44 bottom-14 text-white bg-black rounded-4xl">
+            Hi!
+          </div>
+          <header class="absolute top-38 left-15">
+            <div class="flex gap-30">
+              <a id="header-link-page-sorting" href="#" class="relative uppercase text-center text-xl hidden-element-premove-y opacity-0">
+                <div class="position-background-center min-w-120 min-h-14 bg-transparent backdrop-blur-sm rounded-4xl border-black border-solid border-2">
                 </div>
-                <div class="overflow-hidden">
-                  <p
-                    id="main-subtitle"
-                    class="hidden-element-premove-y text-center lowercase px-10 max-w-800"
-                  >
-                    A tutorial for understanding basic sorting, useful when you
-                    need to remember the basics
-                  </p>
+                Sorting
+              </a>
+              <a id="header-link-page-search" href="#" class="relative uppercase text-center text-xl translate-y-full opacity-0">
+                <div class="position-background-center min-w-120 min-h-14 bg-transparent backdrop-blur-sm rounded-4xl border-black border-solid border-2">
+                </div>
+                Search
+              </a>
+              <a id="header-link-page-optimization" href="#" class="relative uppercase text-center text-xl translate-y-full opacity-0">
+                <div class="position-background-center min-w-120 min-h-14 bg-transparent backdrop-blur-sm rounded-4xl border-black border-solid border-2">
+                </div>
+                Optimization
+              </a>
+            </div>
+          </header>
+          <main>
+            <section class="section">
+              <div class="h-screen w-screen flex justify-center items-center">
+                <div class="relative">
+                  <div
+                    class="position-background-center min-w-full min-h-28 bg-transparent backdrop-blur-sm rounded-4xl border-black border-solid border-2"
+                  ></div>
+                  <div class="main-title-container">
+                    <h1
+                      id="main-title"
+                      class="hidden-element-premove-y uppercase text-center text-5xl opacity-0"
+                    >
+                      Algorithms
+                    </h1>
+                  </div>
+                  <div class="main-subtitle-container">
+                    <p
+                      id="main-subtitle"
+                      class="hidden-element-premove-y text-center lowercase px-10 max-w-800 opacity-0"
+                    >
+                      A tutorial for understanding basic sorting, useful when you
+                      need to remember the basics
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-          </section>
-          <section class="section">
-            <div
-              class="h-screen w-screen flex justify-center items-center text-8xl"
-            >
-              Profile
-            </div>
-          </section>
+            </section>
+            <section class="section">
+              <div
+                class="h-screen w-screen flex justify-center items-center text-8xl"
+              >
+                Profile
+              </div>
+            </section>
+          </main>
         </div>
-      </main>
+      </div>
     </div>
   </body>
 </html>
