@@ -157,8 +157,6 @@ const tick = () => {
 // DOM-element
 const mainTitle = document.querySelector("#main-title");
 const mainSubtitle = document.querySelector("#main-subtitle");
-const mainPanelUp = document.querySelector('#main-panel-up');
-const mainPanelDown = document.querySelector('#main-panel-down');
 
 // init animation
 const tl = gsap.timeline({
@@ -169,11 +167,7 @@ const tl = gsap.timeline({
 });
 
 tl.to(mainTitle, configAppElemHeroY())
-  .to(mainSubtitle, configAppElemHeroY())
-  .to(mainPanelUp, configAppElemX())
-  .to(mainPanelDown, configAppElemX(), "<")
-  .to(mainPanelUp, configAppElemXreverseLeft())
-  .to(mainPanelDown, configAppElemXreverseRigth(), "<");
+  .to(mainSubtitle, configAppElemHeroY());
 
 tick();
 
