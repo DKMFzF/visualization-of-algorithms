@@ -26,9 +26,7 @@ gsap.registerPlugin(ScrollTrigger);
 // DOM-element
 const mainTitle = document.querySelector("#main-title");
 const mainSubtitle = document.querySelector("#main-subtitle");
-const headerLinkPageSorting = document.querySelector("#header-link-page-sorting");
-const headerLinkPageSearch = document.querySelector("#header-link-page-search");
-const headerLinkPageOptimization = document.querySelector("#header-link-page-optimization");
+const headerLink = document.querySelectorAll(".header-link");
 
 // penguin
 const penguin = document.querySelector("#penguin");
@@ -155,21 +153,13 @@ const tick = () => {
 
 // add in timeline
 tl.to(mainTitle, configAppElemHeroDownY(animationTimeMainTitle)) 
-  .to(mainSubtitle, configAppElemHeroDownY(animationTimeMainTitle), "-=0.2") 
-  .to(headerLinkPageSorting, configAppElemHeroDownY(animationTimeHeaderLink))
-  .to(headerLinkPageSearch, configAppElemHeroDownY(animationTimeHeaderLink), "-=0.2") 
-  .to(headerLinkPageOptimization, configAppElemHeroDownY(animationTimeHeaderLink), "-=0.2")
-  .to(penguin, {
-    delay: 1.5,
-    duration: 2,
-    y: 50
-  })
-  .from(penguinDialog, {
-    duration: 0.5,
-    opacity: 0,
-    y: 100,
-    bottom: 0
-  });
+  .to(mainSubtitle, configAppElemHeroDownY(animationTimeMainTitle), "-=0.2")
+  .to(headerLink, configAppElemHeroDownY(animationTimeHeaderLink, 0.2))
+  .to(penguin, { delay: 1, duration: 2, y: 50 })
+  .to(penguin, { duration: 0.5, y: 80 })
+  .to(penguin, { duration: 0.5, y: -80 })
+  .to(penguin, { duration: 0.35, y: -20, ease: "bounce.out", })
+  .from(penguinDialog, { duration: 0.5, opacity: 0, y: 100, bottom: 0 });
 
 tick();
 

@@ -1,7 +1,8 @@
-export const configAppElemHeroDownY = (time) => {
+export const configAppElemHeroDownY = (time, staggerTime=0) => {
   return {
     duration: time,
     opacity: 1,
+    stagger: staggerTime,
     y: 0,
   };
 };
