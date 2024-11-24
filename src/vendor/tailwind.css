@@ -40,4 +40,13 @@
         left: 50%;
         transform: translate(-50%, -50%);;
     }
+
+    /* hover тень для main-title */
+    .shadow-hover {
+        transition: box-shadow 0.3s ease-in-out;
+    }
+
+    .shadow-hover:hover {
+        box-shadow: 10px 10px 0 0 rgba(0, 0, 0, 0.5);
+    }
 }

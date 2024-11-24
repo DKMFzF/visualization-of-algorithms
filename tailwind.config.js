@@ -3,6 +3,9 @@ module.exports = {
     content: ['./**/*.html'],
     theme: {
       extend: {
+        padding: {
+          '8': '8rem'
+        },
         fontFamily: {
           'sans': ['"Syne"', 'sans-serif']
         },
