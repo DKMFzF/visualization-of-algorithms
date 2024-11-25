@@ -9,6 +9,9 @@ module.exports = {
         fontFamily: {
           'sans': ['"Syne"', 'sans-serif']
         },
+        fontSize: {
+          "13": "13rem"
+        },
         gap: {
           '30': '26%'
         },
@@ -17,7 +20,11 @@ module.exports = {
           '38': '3.8rem'  
         },
         width: {
+          '50': '50%',
           '60': '60%'
+        },
+        height: {
+          '10': '10%'
         },
         minHeight: {
           '28': '22rem'

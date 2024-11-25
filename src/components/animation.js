@@ -7,12 +7,12 @@ export const configAppElemDownY = (time, staggerTime=0) => {
   };
 };
 
-export const configAppElemY = (target) => {
+export const configAppElemYTrigger = (target, time) => {
   return {
     scrollTrigger: {
       trigger: target,
     },
-    duration: 1,
+    duration: time,
     y: 0,
   };
 };

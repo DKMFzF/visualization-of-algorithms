@@ -17,7 +17,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import fullpage from "fullpage-js-geek";
 import { configFullPage } from "../components/scroll-page.js";
 import { 
-  configAppElemDownY,
+  configAppElemDownY
 } from "../components/animation.js";
 import "../pages/index.css";
 
@@ -30,6 +30,7 @@ const headerLink = document.querySelectorAll(".header-link");
 const bgMain = document.querySelector("#main-container");
 const mainContainer = document.querySelector("#hero-section-content");
 const canvas = document.querySelector("canvas.webgl");
+const ownerTexts = document.querySelectorAll('.owner-text');
 
 // penguin
 const penguin = document.querySelector("#penguin");
@@ -173,5 +174,5 @@ tl.from(bgMain, {
 
 tick();
 
-// init scroll page
-(() => new fullpage("#fullpage", configFullPage))();
+// init fullPage.js
+(() => new fullpage('#fullpage'))();
