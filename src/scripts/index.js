@@ -17,7 +17,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import fullpage from "fullpage-js-geek";
 import { configFullPage } from "../components/scroll-page.js";
 import { 
-  configAppElemHeroDownY,
+  configAppElemDownY,
 } from "../components/animation.js";
 import "../pages/index.css";
 
@@ -27,6 +27,9 @@ gsap.registerPlugin(ScrollTrigger);
 const mainTitle = document.querySelector("#main-title");
 const mainSubtitle = document.querySelector("#main-subtitle");
 const headerLink = document.querySelectorAll(".header-link");
+const bgMain = document.querySelector("#main-container");
+const mainContainer = document.querySelector("#hero-section-content");
+const canvas = document.querySelector("canvas.webgl");
 
 // penguin
 const penguin = document.querySelector("#penguin");
@@ -45,7 +48,6 @@ const tl = gsap.timeline({
 });
 
 // init webgl
-const canvas = document.querySelector("canvas.webgl");
 const scene = new Scene();
 const objectsDistance = 4;
 const material1 = new MeshToonMaterial({ color: "#2196F3", transparent: false });
@@ -71,6 +73,7 @@ for (let i = 0; i < particlesCount; i++) {
   positions[i * 3 + 2] = (Math.random() - 0.5) * 10;
 }
 
+// init geometry
 const particlesGeometry = new BufferGeometry();
 particlesGeometry.setAttribute("position", new BufferAttribute(positions, 3));
 const directionalLight = new DirectionalLight("#ffffff", 3);
@@ -101,6 +104,7 @@ renderer.setSize(sizes.width, sizes.height);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.shadowMap.enabled = false;
 
+// animation webgl
 let scrollY = window.scrollY;
 let currentSection = 0;
 window.addEventListener("scroll", () => {
@@ -151,15 +155,21 @@ const tick = () => {
   window.requestAnimationFrame(tick);
 };
 
-// add in timeline
-tl.to(mainTitle, configAppElemHeroDownY(animationTimeMainTitle)) 
-  .to(mainSubtitle, configAppElemHeroDownY(animationTimeMainTitle), "-=0.2")
-  .to(headerLink, configAppElemHeroDownY(animationTimeHeaderLink, 0.2))
-  .to(penguin, { delay: 1, duration: 2, y: 50 })
+// animation in timeline
+tl.from(bgMain, { 
+    duration: 0.4, scale: 0, ease: "bounce.out", 
+    onComplete: () => {
+      mainContainer.classList.add('hover-scale');
+    }
+  })
+  .to(mainTitle, configAppElemDownY(animationTimeMainTitle)) 
+  .to(mainSubtitle, configAppElemDownY(animationTimeMainTitle), "-=0.2")
+  .to(headerLink, configAppElemDownY(animationTimeHeaderLink, 0.2))
+  .to(penguin, { delay: 0.3, duration: 2, y: 50 })
   .to(penguin, { duration: 0.5, y: 80 })
   .to(penguin, { duration: 0.5, y: -80 })
   .to(penguin, { duration: 0.35, y: -20, ease: "bounce.out", })
-  .from(penguinDialog, { duration: 0.5, opacity: 0, y: 100, bottom: 0 });
+  .from(penguinDialog, { duration: 0.3, opacity: 0, scale: 0, });
 
 tick();
 
