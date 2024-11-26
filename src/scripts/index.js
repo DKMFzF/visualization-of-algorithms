@@ -32,7 +32,7 @@ const mainContainer = document.querySelector("#hero-section-content");
 const canvas = document.querySelector("canvas.webgl");
 const ownerTexts = document.querySelectorAll('.owner-text');
 
-// penguin
+// penguin-dom
 const penguin = document.querySelector("#penguin");
 const penguinDialog = document.querySelector("#penguin-diolog");
 
