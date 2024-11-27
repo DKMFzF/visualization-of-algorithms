@@ -21,8 +21,6 @@ import {
 } from "../components/animation.js";
 import "../pages/index.css";
 
-import { TimelineMax } from "gsap/gsap-core.js";
-
 gsap.registerPlugin(ScrollTrigger);
 
 // DOM-element
@@ -32,7 +30,6 @@ const headerLink = document.querySelectorAll(".header-link");
 const bgMain = document.querySelector("#main-container");
 const mainContainer = document.querySelector("#hero-section-content");
 const canvas = document.querySelector("canvas.webgl");
-const ownerTexts = document.querySelectorAll('.owner-text');
 
 // penguin-dom
 const penguin = document.querySelector("#penguin");
@@ -160,7 +157,7 @@ const tick = () => {
 
 // animation in timeline
 tl.from(bgMain, { 
-    duration: 0.4, scale: 0, ease: "bounce.out", 
+    duration: 0.4, opacity: 0, 
     onComplete: () => {
       mainContainer.classList.add('hover-scale');
     }
@@ -177,22 +174,38 @@ tl.from(bgMain, {
 tick();
 
 // init fullPage.js
-new fullpage('#fullpage', {
-  scrollingSpeed: 1000,
-  autoScrolling: true,
-  anchors: ['firstSection', 'secondSection'],
-  // animation show
-  onLeave: (origin, destination, direction) => {
+(() => {
+  new fullpage('#fullpage', {
+    scrollingSpeed: 1000,
+    autoScrolling: true,
+    anchors: ['firstSection', 'secondSection'],
 
-    const section = destination.item;
-    const textStart = section.querySelector('#text-from');
-    const textMid = section.querySelector('#text-the');
-    const textEnd = section.querySelector('#text-author');
+    // animation show
+    onLeave: (origin, destination, direction) => {
 
-    if (textStart || textMid || textEnd)  {
-      gsap.from(textStart, { delay: 0.5, duration: 1, y: 200 })
-      gsap.from(textMid, { delay: 0.8, duration: 1, y: 200 });
-      gsap.from(textEnd, { delay: 1.1, duration: 1, y: 200 });
-    };
-  }
-});
+      const section = destination.item;
+      const textStart = section.querySelector('#text-from');
+      const textMid = section.querySelector('#text-the');
+      const textEnd = section.querySelector('#text-author');
+      const containerOwnerDiscripter = section.querySelector("#owner-discripter");
+      const titleOwner = section.querySelector("#title-owner");
+      const discriptionOwner = section.querySelector("#discription-owner");
+      const addressOwner = section.querySelector("#address-owner");
+
+      // section 2
+      if (textStart || textMid || textEnd)  {
+        
+        // bg
+        gsap.from(textStart, { delay: 0.5, duration: 1, y: 200 })
+        gsap.from(textMid, { delay: 0.8, duration: 1, y: 200 });
+        gsap.from(textEnd, { delay: 1.1, duration: 1, y: 200 });
+        gsap.from(containerOwnerDiscripter, { duration: 1, height: '0%' });
+
+        // content
+        gsap.from(titleOwner, { delay: 1.3, duration: 1, opacity: 0 });
+        gsap.from(discriptionOwner, { delay: 1.3, duration: 1, opacity: 0 });
+        gsap.from(addressOwner, { delay: 1.3, duration: 0.5, opacity: 0 });
+      };
+    }
+  });
+})();

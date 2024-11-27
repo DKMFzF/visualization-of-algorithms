@@ -31,7 +31,7 @@
           >
             Hi!
           </div>
-          <header class="absolute top-38 left-15">
+          <div class="absolute top-38 left-15" role="heading">
             <div class="flex gap-30">
               <a
                 id="header-link-page-sorting"
@@ -64,56 +64,139 @@
                 Optimization
               </a>
             </div>
-          </header>
-          <main>
-            <section class="section section-one">
-              <div class="h-screen w-screen flex justify-center items-center">
-                <div
-                  id="hero-section-content"
-                  class="relative cursor-pointer py-8 rounded-4xl"
-                >
-                  <div
-                    id="main-container"
-                    class="position-background-center min-w-full min-h-full bg-transparent backdrop-blur-sm rounded-4xl border-black border-solid border-2"
-                  ></div>
-                  <div class="main-title-container">
-                    <h1
-                      id="main-title"
-                      class="hidden-element-premove-y uppercase text-center text-5xl opacity-0"
-                    >
-                      Algorithms
-                    </h1>
-                  </div>
-                  <div class="main-subtitle-container">
-                    <p
-                      id="main-subtitle"
-                      class="hidden-element-premove-y text-center lowercase px-10 max-w-800 opacity-0"
-                    >
-                      A tutorial for understanding basic sorting, useful when
-                      you need to remember the basics
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </section>
-            <section class="section section-two">
+          </div>
+          <div class="section section-one" role="main">
+            <div class="h-screen w-screen flex justify-center items-center">
               <div
-                class="relative z-50 text-white h-screen w-screen flex flex-row justify-center items-center bg-black"
+                id="hero-section-content"
+                class="relative cursor-pointer py-8 rounded-4xl"
               >
-                <div class="absolute w-full h-full flex flex-col justify-center gap-7 uppercase text-13 leading-none">
-                  <div class="overflow-hidden">
-                    <div id="text-from" class="owner-text text-left">From</div>
-                  </div>
-                  <div class="overflow-hidden">
-                    <div id="text-the" class="owner-text text-left">the</div>
-                  </div>
-                  <div class="overflow-hidden">
-                    <div id="text-author" class="owner-text text-left">author</div>
+                <div
+                  id="main-container"
+                  class="position-background-center min-w-full min-h-full bg-transparent backdrop-blur-sm rounded-4xl border-black border-solid border-2"
+                ></div>
+                <div class="main-title-container">
+                  <h1
+                    id="main-title"
+                    class="hidden-element-premove-y uppercase text-center text-5xl opacity-0"
+                  >
+                    Algorithms
+                  </h1>
+                </div>
+                <div class="main-subtitle-container">
+                  <p
+                    id="main-subtitle"
+                    class="hidden-element-premove-y text-center lowercase px-10 max-w-800 opacity-0"
+                  >
+                    A tutorial for understanding basic sorting, useful when you
+                    need to remember the basics
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="section section-two" role="contentinfo">
+            <div
+              class="relative z-40 text-white h-screen w-screen flex flex-row justify-center items-center bg-black"
+            >
+              <div
+                class="absolute w-full h-full flex flex-col justify-center gap-7 uppercase text-13 leading-none"
+              >
+                <div class="overflow-hidden">
+                  <div id="text-from" class="owner-text text-left">From</div>
+                </div>
+                <div class="overflow-hidden">
+                  <div id="text-the" class="owner-text text-left">the</div>
+                </div>
+                <div class="overflow-hidden">
+                  <div id="text-author" class="owner-text text-left">
+                    author
                   </div>
                 </div>
               </div>
-            </section>
-          </main>
+              <div
+                id="owner-discripter"
+                class="relative overflow-hidden z-50 text-black h-85 py-12"
+              >
+                <div class="h-full">
+                  <article class="relative ml-32 p-6 w-53 h-full">
+                    <div
+                      class="absolute top-0 bottom-0 right-0 left-0 backdrop-blur-2xl backdrop-invert bg-transparent rounded-4xl"
+                    ></div>
+                    <div
+                      class="relative z-60 rounded-4xl w-full h-full flex flex-col justify-between"
+                    >
+                      <header class="overflow-hidden">
+                        <h2 id="title-owner" class="text-5xl text-center">
+                          Project Guide
+                        </h2>
+                      </header>
+                      <div class="overflow-hidden">
+                        <p id="discription-owner">
+                          This site will help you with studying such a wonderful
+                          topic as Algorithms! This site contains the basic
+                          <a href="" _blank>
+                            <span
+                              class="text-red-500 transition-colors duration-300 hover:text-red-800"
+                            >
+                              sorting
+                            </span>
+                          </a>
+                          ,
+                          <a href="" _blank>
+                            <span
+                              class="text-green-500 transition-colors duration-300 hover:text-green-800"
+                            >
+                              search
+                            </span>
+                          </a>
+                          and
+                          <a href="" _blank>
+                            <span
+                              class="text-blue-500 transition-colors duration-300 hover:text-blue-800"
+                            >
+                              optimization
+                            </span>
+                          </a>
+                          algorithms. When I first started studying algorithms,
+                          it was difficult for me to figure out what they were
+                          for and where to use them in general. It was only
+                          after a long time that I was able to solve the most
+                          primitive Medium tasks on
+                          <a href="https://leetcode.com/" _blank>
+                            <span
+                              class="text-yellow-500 transition-colors duration-300 hover:text-yellow-800"
+                              >Leetcode</span
+                            >
+                          </a>
+                          . That's why I created this site to make it easier for
+                          novice programmers to enter such an amazing and
+                          beautiful world of algorithms. Have fun learning, if
+                          it gets really difficult, click on the Penguin, it
+                          will help!
+                        </p>
+                      </div>
+                      <footer>
+                        <address id="address-owner">
+                          <div class="flex flex-row justify-between">
+                            <div>
+                              <a href="https://github.com/DKMFzF" _blank>
+                                GitHub Owner
+                              </a>
+                            </div>
+                            <div>
+                              Gmail Owner:
+                              <span class="underline">dkmfff@gmail.com</span>
+                            </div>
+                          </div>
+                        </address>
+                      </footer>
+                    </div>
+                  </article>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

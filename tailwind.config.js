@@ -3,8 +3,16 @@ module.exports = {
     content: ['./**/*.html'],
     theme: {
       extend: {
+        zIndex: {
+          '60': '60'
+        },
+        margin: {
+          '32': '32rem'
+        },
         padding: {
-          '8': '8rem'
+          '8': '8rem',
+          '12': '12%',
+          '14': '14%'
         },
         fontFamily: {
           'sans': ['"Syne"', 'sans-serif']
@@ -21,10 +29,12 @@ module.exports = {
         },
         width: {
           '50': '50%',
+          '53': '53rem',
           '60': '60%'
         },
         height: {
-          '10': '10%'
+          '10': '10%',
+          '85': '85%'
         },
         minHeight: {
           '28': '22rem'
