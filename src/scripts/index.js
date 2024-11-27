@@ -1,3 +1,11 @@
+/** 
+ * @module init project 
+ * @description This module initializes the main components of the 
+ * project, including WebGL, GSAP animations, and FullPage.js 
+ * functionality. It handles DOM manipulation, event listeners, 
+ * WebGL rendering, and scroll-triggered animations.
+*/
+
 import {
   Scene,
   MeshToonMaterial,
@@ -28,54 +36,74 @@ import "../pages/index.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// DOM-element
+// ========== DOM Elements ==========
+
 const mainTitle = document.querySelector("#main-title");
 const mainSubtitle = document.querySelector("#main-subtitle");
 const headerLink = document.querySelectorAll(".header-link");
 const bgMain = document.querySelector("#main-container");
 const mainContainer = document.querySelector("#hero-section-content");
 const canvas = document.querySelector("canvas.webgl");
+
+/** Bg text elements section Owner for animations */
 const textStart = document.querySelector("#text-from");
 const textMid = document.querySelector("#text-the");
 const textEnd = document.querySelector("#text-author");
+
+/** Owner description elements */
 const containerOwnerDiscripter = document.querySelector("#owner-discripter");
 const titleOwner = document.querySelector("#title-owner");
 const discriptionOwner = document.querySelector("#discription-owner");
 const addressOwner = document.querySelector("#address-owner");
 
-// penguin-dom
+/** Penguin and dialog elements */
 const penguin = document.querySelector("#penguin");
 const penguinDialog = document.querySelector("#penguin-diolog");
 
-// value animation
+// ========== Animation Parameters ==========
+
+/**
+ * Animation timings for header and main elements.
+ * @constant {number} animationTimeHeaderLink - Animation duration for header links.
+ * @constant {number} animationTimeMainTitle - Animation duration for main title.
+ * @constant {number} delayOwnerAnimation - Delay for owner animations.
+ */
 const animationTimeHeaderLink = 0.3;
 const animationTimeMainTitle = 0.5;
 const delayOwnerAnimation = 0.2;
+
+/** Animation settings for owner background elements */
 const animationOwnerBgElement = {
   delay: 0.5,
   time: 1,
   vector: 200,
 };
+
+/** Array of elements for background animations */
 const arrAnimationOwnerElementBg = [textStart, textMid, textEnd];
+
+/** Configuration for owner content animations */
 const confitOwnerContentElement = {
   delay: 1.3,
   time: 1,
 };
+
+/** Array of elements for content animations */
 const arrAnimationOwnerElementContent = [
   titleOwner,
   discriptionOwner,
   addressOwner,
 ];
 
-// init timeline
+/** GSAP timeline for initial animations */
 const tl = gsap.timeline({
   delay: 0.2,
-  defaults: {
-    ease: "power1.out",
-  },
+  defaults: { ease: "power1.out" },
 });
 
-// init webgl
+// ========== WebGL Initialization ==========
+
+/** WebGL scene and objects setup */
 const scene = new Scene();
 const objectsDistance = 4;
 const material1 = new MeshToonMaterial({
@@ -96,9 +124,10 @@ mesh1.position.set(3, 2, 0);
 mesh2.position.set(-3, -2, 0);
 scene.add(mesh1, mesh2);
 const sectionMeshes = [mesh1, mesh2];
+
+/** Create particle system */
 const particlesCount = 200;
 const positions = new Float32Array(particlesCount * 3);
-
 for (let i = 0; i < particlesCount; i++) {
   positions[i * 3 + 0] = (Math.random() - 0.5) * 10;
   positions[i * 3 + 1] =
@@ -107,19 +136,31 @@ for (let i = 0; i < particlesCount; i++) {
   positions[i * 3 + 2] = (Math.random() - 0.5) * 10;
 }
 
-// init geometry
 const particlesGeometry = new BufferGeometry();
 particlesGeometry.setAttribute("position", new BufferAttribute(positions, 3));
+
+/** Add light to the scene */
 const directionalLight = new DirectionalLight("#ffffff", 3);
 directionalLight.position.set(1, 1, 0);
 scene.add(directionalLight);
+
 const sizes = { width: window.innerWidth, height: window.innerHeight };
 const cameraGroup = new Group();
 scene.add(cameraGroup);
-const camera = new PerspectiveCamera(35, sizes.width / sizes.height, 0.1, 100);
+
+const camera = new PerspectiveCamera(
+  35, 
+  sizes.width / sizes.height, 
+  0.1, 
+  100
+);
 camera.position.z = 6;
 cameraGroup.add(camera);
 
+/**
+ * Resize event listener.
+ * Updates camera and renderer on window resize.
+ */
 window.addEventListener("resize", () => {
   sizes.width = window.innerWidth;
   sizes.height = window.innerHeight;
@@ -129,7 +170,6 @@ window.addEventListener("resize", () => {
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 });
 
-// init renderer
 const renderer = new WebGLRenderer({
   canvas: canvas,
   alpha: true,
@@ -138,7 +178,10 @@ renderer.setSize(sizes.width, sizes.height);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.shadowMap.enabled = false;
 
-// animation webgl
+/**
+ * Scroll event listener.
+ * Updates section and triggers animations.
+ */
 let scrollY = window.scrollY;
 let currentSection = 0;
 window.addEventListener("scroll", () => {
@@ -156,7 +199,10 @@ window.addEventListener("scroll", () => {
   }
 });
 
-// init cursor
+/**
+ * Cursor movement event listener.
+ * Tracks cursor position for parallax effect.
+ */
 const cursor = {};
 cursor.x = 0;
 cursor.y = 0;
@@ -165,7 +211,10 @@ window.addEventListener("mousemove", (e) => {
   cursor.y = e.clientY / sizes.height - 0.5;
 });
 
-// init clock
+/**
+ * Animation loop.
+ * Handles camera movement, mesh rotation, and rendering.
+ */
 const clock = new Clock();
 let previousTime = 0;
 const tick = () => {
@@ -189,7 +238,8 @@ const tick = () => {
   window.requestAnimationFrame(tick);
 };
 
-// animation in timeline
+// ========== Animations and Event Listeners ==========
+
 tl.from(bgMain, {
     duration: 0.4,
     opacity: 0,
@@ -208,14 +258,15 @@ tl.from(bgMain, {
 
 tick();
 
-// init fullPage.js
+// ========== init FullPage ==========
+
 (() => {
   new fullpage("#fullpage", {
     scrollingSpeed: 1000,
     autoScrolling: true,
     anchors: ["firstSection", "secondSection"],
 
-    // animation show
+    // show
     onLeave: (origin, destination, direction) => {
       switch (destination.index) {
         case 1:

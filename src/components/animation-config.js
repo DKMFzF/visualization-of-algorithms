@@ -1,3 +1,13 @@
+/** @module animation template module */
+
+
+/**
+ * Animation template: moving an element up, 
+ * followed by its appearance
+ * @param { number } time - animation execution time
+ * @param { number } staggerTime - delay for multiple elements to appear
+ * @returns { object } - animation template object
+ */
 export const configAppElemDownY = (time, staggerTime = 0) => {
   return {
     duration: time,
@@ -7,6 +17,14 @@ export const configAppElemDownY = (time, staggerTime = 0) => {
   };
 };
 
+/**
+ * Animation template taking into account the Y vector, 
+ * the animation will lift the element up
+ * @param { number } delay - setting up the animation
+ * @param { number } time - animation execution time
+ * @param { number } vector - Animation direction (Y)
+ * @returns 
+ */
 export const configAppBg = (delay, time, vector) => {
   return {
     delay: delay,
@@ -15,6 +33,12 @@ export const configAppBg = (delay, time, vector) => {
   };
 };
 
+/**
+ * Template for animation template: the appearance of an element
+ * @param { number } delay - setting up the animation
+ * @param { number } time - animation execution time
+ * @returns 
+ */
 export const configShowOpacity = (delay, time) => {
   return {
     delay: delay,

@@ -63,4 +63,10 @@ module.exports = {
     new CleanWebpackPlugin(),
     new MiniCssExtractPlugin(),
   ],
+  
+  resolve: {
+    fallback: {
+      util: require.resolve("util/"),
+    },
+  },
 };
