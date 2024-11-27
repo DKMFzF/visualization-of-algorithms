@@ -1,4 +1,10 @@
-/** @module animation template module */
+/** 
+ * @module animation template module
+ * @description This code block is an animation module that 
+ * contains several templates for customizing the animation 
+ * of elements on a web page. Each template defines animation 
+ * parameters such as duration, delay, and direction of movement. 
+ */
 
 
 /**
