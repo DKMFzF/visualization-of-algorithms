@@ -21,6 +21,8 @@ import {
 } from "../components/animation.js";
 import "../pages/index.css";
 
+import { TimelineMax } from "gsap/gsap-core.js";
+
 gsap.registerPlugin(ScrollTrigger);
 
 // DOM-element
@@ -175,4 +177,22 @@ tl.from(bgMain, {
 tick();
 
 // init fullPage.js
-(() => new fullpage('#fullpage'))();
+new fullpage('#fullpage', {
+  scrollingSpeed: 1000,
+  autoScrolling: true,
+  anchors: ['firstSection', 'secondSection'],
+  // animation show
+  onLeave: (origin, destination, direction) => {
+
+    const section = destination.item;
+    const textStart = section.querySelector('#text-from');
+    const textMid = section.querySelector('#text-the');
+    const textEnd = section.querySelector('#text-author');
+
+    if (textStart || textMid || textEnd)  {
+      gsap.from(textStart, { delay: 0.5, duration: 1, y: 200 })
+      gsap.from(textMid, { delay: 0.8, duration: 1, y: 200 });
+      gsap.from(textEnd, { delay: 1.1, duration: 1, y: 200 });
+    };
+  }
+});
