@@ -5,7 +5,7 @@
 
 ## Documentation
 [Documentation in English](docs/DOCS.en.md)  
-[Документация на русском](docs/README.ru.md)
+[Документация на русском](docs/DOCS.ru.md)
 
 ## Description of the project
 When I first started studying algorithms,
