@@ -15,10 +15,15 @@ import {
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import fullpage from "fullpage-js-geek";
-import { configFullPage } from "../components/scroll-page.js";
-import { 
-  configAppElemDownY
-} from "../components/animation.js";
+import {
+  initAimaVectorElems,
+  initAnimOpacityElems,
+} from "../components/animation-fun-element.js";
+import {
+  configAppElemDownY,
+  configAppBg,
+  configShowOpacity,
+} from "../components/animation-config.js";
 import "../pages/index.css";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -30,6 +35,13 @@ const headerLink = document.querySelectorAll(".header-link");
 const bgMain = document.querySelector("#main-container");
 const mainContainer = document.querySelector("#hero-section-content");
 const canvas = document.querySelector("canvas.webgl");
+const textStart = document.querySelector("#text-from");
+const textMid = document.querySelector("#text-the");
+const textEnd = document.querySelector("#text-author");
+const containerOwnerDiscripter = document.querySelector("#owner-discripter");
+const titleOwner = document.querySelector("#title-owner");
+const discriptionOwner = document.querySelector("#discription-owner");
+const addressOwner = document.querySelector("#address-owner");
 
 // penguin-dom
 const penguin = document.querySelector("#penguin");
@@ -38,6 +50,22 @@ const penguinDialog = document.querySelector("#penguin-diolog");
 // value animation
 const animationTimeHeaderLink = 0.3;
 const animationTimeMainTitle = 0.5;
+const delayOwnerAnimation = 0.2;
+const animationOwnerBgElement = {
+  delay: 0.5,
+  time: 1,
+  vector: 200,
+};
+const arrAnimationOwnerElementBg = [textStart, textMid, textEnd];
+const confitOwnerContentElement = {
+  delay: 1.3,
+  time: 1,
+};
+const arrAnimationOwnerElementContent = [
+  titleOwner,
+  discriptionOwner,
+  addressOwner,
+];
 
 // init timeline
 const tl = gsap.timeline({
@@ -50,9 +78,15 @@ const tl = gsap.timeline({
 // init webgl
 const scene = new Scene();
 const objectsDistance = 4;
-const material1 = new MeshToonMaterial({ color: "#2196F3", transparent: false });
+const material1 = new MeshToonMaterial({
+  color: "#2196F3",
+  transparent: false,
+});
 const mesh1 = new Mesh(new TorusGeometry(1, 0.4, 16, 60), material1);
-const material2 = new MeshToonMaterial({ color: "#F44336", transparent: false });
+const material2 = new MeshToonMaterial({
+  color: "#F44336",
+  transparent: false,
+});
 const mesh2 = new Mesh(new ConeGeometry(1, 2, 32), material2);
 mesh1.castShadow = false;
 mesh1.receiveShadow = false;
@@ -156,56 +190,55 @@ const tick = () => {
 };
 
 // animation in timeline
-tl.from(bgMain, { 
-    duration: 0.4, opacity: 0, 
+tl.from(bgMain, {
+    duration: 0.4,
+    opacity: 0,
     onComplete: () => {
-      mainContainer.classList.add('hover-scale');
-    }
+      mainContainer.classList.add("hover-scale");
+    },
   })
-  .to(mainTitle, configAppElemDownY(animationTimeMainTitle)) 
+  .to(mainTitle, configAppElemDownY(animationTimeMainTitle))
   .to(mainSubtitle, configAppElemDownY(animationTimeMainTitle), "-=0.2")
   .to(headerLink, configAppElemDownY(animationTimeHeaderLink, 0.2))
   .to(penguin, { delay: 0.3, duration: 2, y: 50 })
   .to(penguin, { duration: 0.5, y: 80 })
   .to(penguin, { duration: 0.5, y: -80 })
-  .to(penguin, { duration: 0.35, y: -20, ease: "bounce.out", })
-  .from(penguinDialog, { duration: 0.3, opacity: 0, scale: 0, });
+  .to(penguin, { duration: 0.35, y: -20, ease: "bounce.out" })
+  .from(penguinDialog, { duration: 0.3, opacity: 0, scale: 0 });
 
 tick();
 
 // init fullPage.js
 (() => {
-  new fullpage('#fullpage', {
+  new fullpage("#fullpage", {
     scrollingSpeed: 1000,
     autoScrolling: true,
-    anchors: ['firstSection', 'secondSection'],
+    anchors: ["firstSection", "secondSection"],
 
     // animation show
     onLeave: (origin, destination, direction) => {
+      switch (destination.index) {
+        case 1:
+          // bg
+          initAimaVectorElems(
+            configAppBg,
+            animationOwnerBgElement,
+            delayOwnerAnimation,
+            gsap,
+            ...arrAnimationOwnerElementBg
+          );
 
-      const section = destination.item;
-      const textStart = section.querySelector('#text-from');
-      const textMid = section.querySelector('#text-the');
-      const textEnd = section.querySelector('#text-author');
-      const containerOwnerDiscripter = section.querySelector("#owner-discripter");
-      const titleOwner = section.querySelector("#title-owner");
-      const discriptionOwner = section.querySelector("#discription-owner");
-      const addressOwner = section.querySelector("#address-owner");
+          gsap.from(containerOwnerDiscripter, { duration: 1, height: 0 });
 
-      // section 2
-      if (textStart || textMid || textEnd)  {
-        
-        // bg
-        gsap.from(textStart, { delay: 0.5, duration: 1, y: 200 })
-        gsap.from(textMid, { delay: 0.8, duration: 1, y: 200 });
-        gsap.from(textEnd, { delay: 1.1, duration: 1, y: 200 });
-        gsap.from(containerOwnerDiscripter, { duration: 1, height: '0%' });
-
-        // content
-        gsap.from(titleOwner, { delay: 1.3, duration: 1, opacity: 0 });
-        gsap.from(discriptionOwner, { delay: 1.3, duration: 1, opacity: 0 });
-        gsap.from(addressOwner, { delay: 1.3, duration: 0.5, opacity: 0 });
-      };
-    }
+          // content
+          initAnimOpacityElems(
+            configShowOpacity,
+            confitOwnerContentElement,
+            gsap,
+            ...arrAnimationOwnerElementContent
+          );
+          break;
+      }
+    },
   });
 })();
