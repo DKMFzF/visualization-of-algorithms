@@ -23,6 +23,7 @@ import {
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import fullpage from "fullpage-js-geek";
+import { scrollPageConfig } from '../components/scroll-page-config.js';
 import {
   initAimaVectorElems,
   initAnimOpacityElems,
@@ -31,7 +32,7 @@ import {
   configAppElemDownY,
   configAppBg,
   configShowOpacity,
-} from "../components/animation-config.js";
+} from "../components/animation-templates.js";
 import "../pages/index.css";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -262,14 +263,21 @@ tick();
 
 (() => {
   new fullpage("#fullpage", {
-    scrollingSpeed: 1000,
-    autoScrolling: true,
-    anchors: ["firstSection", "secondSection"],
+    scrollingSpeed: scrollPageConfig.SCROLLING_SPEED,
+    autoScrolling: scrollPageConfig.AUTO_SCROLLING,
+    anchors: scrollPageConfig.ANCHORS,
 
     // show
     onLeave: (origin, destination, direction) => {
       switch (destination.index) {
+        case 0:
+          canvas.style.display = 'block';
+          break;
         case 1:
+          setTimeout(() => {
+            canvas.style.display = 'none';
+          }, 1000);
+
           // bg
           initAimaVectorElems(
             configAppBg,
@@ -279,6 +287,7 @@ tick();
             ...arrAnimationOwnerElementBg
           );
 
+          // Side animation of the description appearance
           gsap.from(containerOwnerDiscripter, { duration: 1, height: 0 });
 
           // content
