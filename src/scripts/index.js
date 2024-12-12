@@ -290,7 +290,7 @@ tick();
           // Side animation of the description appearance
           gsap.from(containerOwnerDiscripter, { duration: 1, height: 0 });
 
-          // content
+          // content-site
           initAnimOpacityElems(
             configShowOpacity,
             confitOwnerContentElement,
